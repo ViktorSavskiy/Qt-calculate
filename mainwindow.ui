@@ -1,0 +1,2553 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>284</width>
+    <height>420</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">/* Элегантный вариант с легкой текстурой */
+MainWindow {
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 1, y2: 1,
+        stop: 0 #700000,
+        stop: 0.3 #5A0010,
+        stop: 0.7 #5A0010,
+        stop: 1 #400000
+    );
+    border: 2px solid #3A0000;
+    border-radius: 10px;
+}</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0" colspan="4">
+     <widget class="QLabel" name="label">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <family>Digital-7</family>
+        <pointsize>-1</pointsize>
+        <italic>false</italic>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">/* Стиль для экрана результата */
+QLabel {
+    background-color: #0a0a0a;
+    border: 4px solid #2c3e50;
+    border-radius: 8px;
+    color: #32cd32; /* Более мягкий зеленый */
+    font-family: &quot;Digital-7&quot;, &quot;Courier New&quot;, monospace;
+    font-size: 52px;
+    font-weight: bold;
+    padding: 12px 20px;
+    text-align: right;
+    min-height: 70px;
+    max-height: 70px;
+    
+    /* Для выравнивания текста */
+    qproperty-alignment: 'AlignRight | AlignVCenter';
+    qproperty-wordWrap: false;
+}
+
+/* Стиль при отображении чисел */
+QLabel[text=&quot;0&quot;],
+QLabel[text=&quot;1&quot;],
+QLabel[text=&quot;2&quot;],
+QLabel[text=&quot;3&quot;],
+QLabel[text=&quot;4&quot;],
+QLabel[text=&quot;5&quot;],
+QLabel[text=&quot;6&quot;],
+QLabel[text=&quot;7&quot;],
+QLabel[text=&quot;8&quot;],
+QLabel[text=&quot;9&quot;] {
+    font-size: 36px !important;
+}</string>
+      </property>
+      <property name="text">
+       <string>0</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QPushButton" name="pushButton_ac">
+      <property name="styleSheet">
+       <string notr="true">/* Стиль для главного окна */
+MainWindow {
+    background-color: #2c3e50;
+}
+
+/* Стиль для QLineEdit (экран калькулятора) */
+QLineEdit {
+    background-color: #1a1a1a;
+    border: 3px solid #34495e;
+    border-radius: 10px;
+    color: #00ff00; /* Зеленый цвет как на старых калькуляторах */
+    font-family: &quot;Digital-7&quot;, &quot;Courier New&quot;, monospace;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 10px 15px;
+    text-align: right;
+    selection-background-color: #34495e;
+    min-height: 50px;
+}
+
+/* Эффект при наведении на экран */
+QLineEdit:hover {
+    border-color: #3498db;
+}
+
+/* Стиль когда экран в фокусе */
+QLineEdit:focus {
+    border-color: #e74c3c;
+}
+
+/* Стиль для кнопок калькулятора */
+QPushButton {
+    background-color: #34495e;
+    border: 2px solid #2c3e50;
+    border-radius: 8px;
+    color: white;
+    font-family: &quot;Arial&quot;, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    min-width: 40px;
+    min-height: 40px;
+}
+
+/* Стиль при наведении на кнопку */
+QPushButton:hover {
+    background-color: #4a6b8a;
+    border-color: #3498db;
+}
+
+/* Стиль при нажатии кнопки */
+QPushButton:pressed {
+    background-color: #2980b9;
+    border-color: #e74c3c;
+}
+
+/* Специальные стили для операторов */
+QPushButton[text=&quot;+&quot;],
+QPushButton[text=&quot;-&quot;],
+QPushButton[text=&quot;*&quot;],
+QPushButton[text=&quot;/&quot;] {
+    background-color: #e67e22;
+    color: white;
+}
+
+QPushButton[text=&quot;+&quot;]:hover,
+QPushButton[text=&quot;-&quot;]:hover,
+QPushButton[text=&quot;*&quot;]:hover,
+QPushButton[text=&quot;/&quot;]:hover {
+    background-color: #d35400;
+}
+
+/* Стиль для кнопки равно */
+QPushButton[text=&quot;=&quot;] {
+    background-color: #27ae60;
+    color: white;
+}
+
+QPushButton[text=&quot;=&quot;]:hover {
+    background-color: #229954;
+}
+
+/* Стиль для кнопок очистки */
+QPushButton[text=&quot;C&quot;],
+QPushButton[text=&quot;AC&quot;] {
+    background-color: #e74c3c;
+    color: white;
+}
+
+QPushButton[text=&quot;C&quot;]:hover,
+QPushButton[text=&quot;AC&quot;]:hover {
+    background-color: #c0392b;
+}
+
+/* Стиль для цифровых кнопок */
+QPushButton[text=&quot;0&quot;],
+QPushButton[text=&quot;1&quot;],
+QPushButton[text=&quot;2&quot;],
+QPushButton[text=&quot;3&quot;],
+QPushButton[text=&quot;4&quot;],
+QPushButton[text=&quot;5&quot;],
+QPushButton[text=&quot;6&quot;],
+QPushButton[text=&quot;7&quot;],
+QPushButton[text=&quot;8&quot;],
+QPushButton[text=&quot;9&quot;] {
+    background-color: #95a5a6;
+    color: #2c3e50;
+}
+
+QPushButton[text=&quot;0&quot;]:hover,
+QPushButton[text=&quot;1&quot;]:hover,
+QPushButton[text=&quot;2&quot;]:hover,
+QPushButton[text=&quot;3&quot;]:hover,
+QPushButton[text=&quot;4&quot;]:hover,
+QPushButton[text=&quot;5&quot;]:hover,
+QPushButton[text=&quot;6&quot;]:hover,
+QPushButton[text=&quot;7&quot;]:hover,
+QPushButton[text=&quot;8&quot;]:hover,
+QPushButton[text=&quot;9&quot;]:hover {
+    background-color: #7f8c8d;
+}</string>
+      </property>
+      <property name="text">
+       <string>AC</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QPushButton" name="pushButton_plmin">
+      <property name="styleSheet">
+       <string notr="true">/* Стиль для главного окна */
+MainWindow {
+    background-color: #2c3e50;
+}
+
+/* Стиль для QLineEdit (экран калькулятора) */
+QLineEdit {
+    background-color: #1a1a1a;
+    border: 3px solid #34495e;
+    border-radius: 10px;
+    color: #00ff00; /* Зеленый цвет как на старых калькуляторах */
+    font-family: &quot;Digital-7&quot;, &quot;Courier New&quot;, monospace;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 10px 15px;
+    text-align: right;
+    selection-background-color: #34495e;
+    min-height: 50px;
+}
+
+/* Эффект при наведении на экран */
+QLineEdit:hover {
+    border-color: #3498db;
+}
+
+/* Стиль когда экран в фокусе */
+QLineEdit:focus {
+    border-color: #e74c3c;
+}
+
+/* Стиль для кнопок калькулятора */
+QPushButton {
+    background-color: #34495e;
+    border: 2px solid #2c3e50;
+    border-radius: 8px;
+    color: white;
+    font-family: &quot;Arial&quot;, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    min-width: 40px;
+    min-height: 40px;
+}
+
+/* Стиль при наведении на кнопку */
+QPushButton:hover {
+    background-color: #4a6b8a;
+    border-color: #3498db;
+}
+
+/* Стиль при нажатии кнопки */
+QPushButton:pressed {
+    background-color: #2980b9;
+    border-color: #e74c3c;
+}
+
+/* Специальные стили для операторов */
+QPushButton[text=&quot;+&quot;],
+QPushButton[text=&quot;-&quot;],
+QPushButton[text=&quot;*&quot;],
+QPushButton[text=&quot;/&quot;] {
+    background-color: #e67e22;
+    color: white;
+}
+
+QPushButton[text=&quot;+&quot;]:hover,
+QPushButton[text=&quot;-&quot;]:hover,
+QPushButton[text=&quot;*&quot;]:hover,
+QPushButton[text=&quot;/&quot;]:hover {
+    background-color: #d35400;
+}
+
+/* Стиль для кнопки равно */
+QPushButton[text=&quot;=&quot;] {
+    background-color: #27ae60;
+    color: white;
+}
+
+QPushButton[text=&quot;=&quot;]:hover {
+    background-color: #229954;
+}
+
+/* Стиль для кнопок очистки */
+QPushButton[text=&quot;C&quot;],
+QPushButton[text=&quot;AC&quot;] {
+    background-color: #e74c3c;
+    color: white;
+}
+
+QPushButton[text=&quot;C&quot;]:hover,
+QPushButton[text=&quot;AC&quot;]:hover {
+    background-color: #c0392b;
+}
+
+/* Стиль для цифровых кнопок */
+QPushButton[text=&quot;0&quot;],
+QPushButton[text=&quot;1&quot;],
+QPushButton[text=&quot;2&quot;],
+QPushButton[text=&quot;3&quot;],
+QPushButton[text=&quot;4&quot;],
+QPushButton[text=&quot;5&quot;],
+QPushButton[text=&quot;6&quot;],
+QPushButton[text=&quot;7&quot;],
+QPushButton[text=&quot;8&quot;],
+QPushButton[text=&quot;9&quot;] {
+    background-color: #95a5a6;
+    color: #2c3e50;
+}
+
+QPushButton[text=&quot;0&quot;]:hover,
+QPushButton[text=&quot;1&quot;]:hover,
+QPushButton[text=&quot;2&quot;]:hover,
+QPushButton[text=&quot;3&quot;]:hover,
+QPushButton[text=&quot;4&quot;]:hover,
+QPushButton[text=&quot;5&quot;]:hover,
+QPushButton[text=&quot;6&quot;]:hover,
+QPushButton[text=&quot;7&quot;]:hover,
+QPushButton[text=&quot;8&quot;]:hover,
+QPushButton[text=&quot;9&quot;]:hover {
+    background-color: #7f8c8d;
+}</string>
+      </property>
+      <property name="text">
+       <string>+/-</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="2">
+     <widget class="QPushButton" name="pushButton_procent">
+      <property name="styleSheet">
+       <string notr="true">/* Стиль для главного окна */
+MainWindow {
+    background-color: #2c3e50;
+}
+
+/* Стиль для QLineEdit (экран калькулятора) */
+QLineEdit {
+    background-color: #1a1a1a;
+    border: 3px solid #34495e;
+    border-radius: 10px;
+    color: #00ff00; /* Зеленый цвет как на старых калькуляторах */
+    font-family: &quot;Digital-7&quot;, &quot;Courier New&quot;, monospace;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 10px 15px;
+    text-align: right;
+    selection-background-color: #34495e;
+    min-height: 50px;
+}
+
+/* Эффект при наведении на экран */
+QLineEdit:hover {
+    border-color: #3498db;
+}
+
+/* Стиль когда экран в фокусе */
+QLineEdit:focus {
+    border-color: #e74c3c;
+}
+
+/* Стиль для кнопок калькулятора */
+QPushButton {
+    background-color: #34495e;
+    border: 2px solid #2c3e50;
+    border-radius: 8px;
+    color: white;
+    font-family: &quot;Arial&quot;, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    min-width: 40px;
+    min-height: 40px;
+}
+
+/* Стиль при наведении на кнопку */
+QPushButton:hover {
+    background-color: #4a6b8a;
+    border-color: #3498db;
+}
+
+/* Стиль при нажатии кнопки */
+QPushButton:pressed {
+    background-color: #2980b9;
+    border-color: #e74c3c;
+}
+
+/* Специальные стили для операторов */
+QPushButton[text=&quot;+&quot;],
+QPushButton[text=&quot;-&quot;],
+QPushButton[text=&quot;*&quot;],
+QPushButton[text=&quot;/&quot;] {
+    background-color: #e67e22;
+    color: white;
+}
+
+QPushButton[text=&quot;+&quot;]:hover,
+QPushButton[text=&quot;-&quot;]:hover,
+QPushButton[text=&quot;*&quot;]:hover,
+QPushButton[text=&quot;/&quot;]:hover {
+    background-color: #d35400;
+}
+
+/* Стиль для кнопки равно */
+QPushButton[text=&quot;=&quot;] {
+    background-color: #27ae60;
+    color: white;
+}
+
+QPushButton[text=&quot;=&quot;]:hover {
+    background-color: #229954;
+}
+
+/* Стиль для кнопок очистки */
+QPushButton[text=&quot;C&quot;],
+QPushButton[text=&quot;AC&quot;] {
+    background-color: #e74c3c;
+    color: white;
+}
+
+QPushButton[text=&quot;C&quot;]:hover,
+QPushButton[text=&quot;AC&quot;]:hover {
+    background-color: #c0392b;
+}
+
+/* Стиль для цифровых кнопок */
+QPushButton[text=&quot;0&quot;],
+QPushButton[text=&quot;1&quot;],
+QPushButton[text=&quot;2&quot;],
+QPushButton[text=&quot;3&quot;],
+QPushButton[text=&quot;4&quot;],
+QPushButton[text=&quot;5&quot;],
+QPushButton[text=&quot;6&quot;],
+QPushButton[text=&quot;7&quot;],
+QPushButton[text=&quot;8&quot;],
+QPushButton[text=&quot;9&quot;] {
+    background-color: #95a5a6;
+    color: #2c3e50;
+}
+
+QPushButton[text=&quot;0&quot;]:hover,
+QPushButton[text=&quot;1&quot;]:hover,
+QPushButton[text=&quot;2&quot;]:hover,
+QPushButton[text=&quot;3&quot;]:hover,
+QPushButton[text=&quot;4&quot;]:hover,
+QPushButton[text=&quot;5&quot;]:hover,
+QPushButton[text=&quot;6&quot;]:hover,
+QPushButton[text=&quot;7&quot;]:hover,
+QPushButton[text=&quot;8&quot;]:hover,
+QPushButton[text=&quot;9&quot;]:hover {
+    background-color: #7f8c8d;
+}</string>
+      </property>
+      <property name="text">
+       <string>%</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="3">
+     <widget class="QPushButton" name="pushButton_delit">
+      <property name="styleSheet">
+       <string notr="true">/* Стиль для главного окна */
+MainWindow {
+    background-color: #2c3e50;
+}
+
+/* Стиль для QLineEdit (экран калькулятора) */
+QLineEdit {
+    background-color: #1a1a1a;
+    border: 3px solid #34495e;
+    border-radius: 10px;
+    color: #00ff00; /* Зеленый цвет как на старых калькуляторах */
+    font-family: &quot;Digital-7&quot;, &quot;Courier New&quot;, monospace;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 10px 15px;
+    text-align: right;
+    selection-background-color: #34495e;
+    min-height: 50px;
+}
+
+/* Эффект при наведении на экран */
+QLineEdit:hover {
+    border-color: #3498db;
+}
+
+/* Стиль когда экран в фокусе */
+QLineEdit:focus {
+    border-color: #e74c3c;
+}
+
+/* Стиль для кнопок калькулятора */
+QPushButton {
+    background-color: #34495e;
+    border: 2px solid #2c3e50;
+    border-radius: 8px;
+    color: white;
+    font-family: &quot;Arial&quot;, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    min-width: 40px;
+    min-height: 40px;
+}
+
+/* Стиль при наведении на кнопку */
+QPushButton:hover {
+    background-color: #4a6b8a;
+    border-color: #3498db;
+}
+
+/* Стиль при нажатии кнопки */
+QPushButton:pressed {
+    background-color: #2980b9;
+    border-color: #e74c3c;
+}
+
+/* Специальные стили для операторов */
+QPushButton[text=&quot;+&quot;],
+QPushButton[text=&quot;-&quot;],
+QPushButton[text=&quot;*&quot;],
+QPushButton[text=&quot;/&quot;] {
+    background-color: #e67e22;
+    color: white;
+}
+
+QPushButton[text=&quot;+&quot;]:hover,
+QPushButton[text=&quot;-&quot;]:hover,
+QPushButton[text=&quot;*&quot;]:hover,
+QPushButton[text=&quot;/&quot;]:hover {
+    background-color: #d35400;
+}
+
+/* Стиль для кнопки равно */
+QPushButton[text=&quot;=&quot;] {
+    background-color: #27ae60;
+    color: white;
+}
+
+QPushButton[text=&quot;=&quot;]:hover {
+    background-color: #229954;
+}
+
+/* Стиль для кнопок очистки */
+QPushButton[text=&quot;C&quot;],
+QPushButton[text=&quot;AC&quot;] {
+    background-color: #e74c3c;
+    color: white;
+}
+
+QPushButton[text=&quot;C&quot;]:hover,
+QPushButton[text=&quot;AC&quot;]:hover {
+    background-color: #c0392b;
+}
+
+/* Стиль для цифровых кнопок */
+QPushButton[text=&quot;0&quot;],
+QPushButton[text=&quot;1&quot;],
+QPushButton[text=&quot;2&quot;],
+QPushButton[text=&quot;3&quot;],
+QPushButton[text=&quot;4&quot;],
+QPushButton[text=&quot;5&quot;],
+QPushButton[text=&quot;6&quot;],
+QPushButton[text=&quot;7&quot;],
+QPushButton[text=&quot;8&quot;],
+QPushButton[text=&quot;9&quot;] {
+    background-color: #95a5a6;
+    color: #2c3e50;
+}
+
+QPushButton[text=&quot;0&quot;]:hover,
+QPushButton[text=&quot;1&quot;]:hover,
+QPushButton[text=&quot;2&quot;]:hover,
+QPushButton[text=&quot;3&quot;]:hover,
+QPushButton[text=&quot;4&quot;]:hover,
+QPushButton[text=&quot;5&quot;]:hover,
+QPushButton[text=&quot;6&quot;]:hover,
+QPushButton[text=&quot;7&quot;]:hover,
+QPushButton[text=&quot;8&quot;]:hover,
+QPushButton[text=&quot;9&quot;]:hover {
+    background-color: #7f8c8d;
+}</string>
+      </property>
+      <property name="text">
+       <string>/</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QPushButton" name="pushButton_7">
+      <property name="styleSheet">
+       <string notr="true">/* Стиль для главного окна */
+MainWindow {
+    background-color: #2c3e50;
+}
+
+/* Стиль для QLineEdit (экран калькулятора) */
+QLineEdit {
+    background-color: #1a1a1a;
+    border: 3px solid #34495e;
+    border-radius: 10px;
+    color: #00ff00; /* Зеленый цвет как на старых калькуляторах */
+    font-family: &quot;Digital-7&quot;, &quot;Courier New&quot;, monospace;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 10px 15px;
+    text-align: right;
+    selection-background-color: #34495e;
+    min-height: 50px;
+}
+
+/* Эффект при наведении на экран */
+QLineEdit:hover {
+    border-color: #3498db;
+}
+
+/* Стиль когда экран в фокусе */
+QLineEdit:focus {
+    border-color: #e74c3c;
+}
+
+/* Стиль для кнопок калькулятора */
+QPushButton {
+    background-color: #34495e;
+    border: 2px solid #2c3e50;
+    border-radius: 8px;
+    color: white;
+    font-family: &quot;Arial&quot;, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    min-width: 40px;
+    min-height: 40px;
+}
+
+/* Стиль при наведении на кнопку */
+QPushButton:hover {
+    background-color: #4a6b8a;
+    border-color: #3498db;
+}
+
+/* Стиль при нажатии кнопки */
+QPushButton:pressed {
+    background-color: #2980b9;
+    border-color: #e74c3c;
+}
+
+/* Специальные стили для операторов */
+QPushButton[text=&quot;+&quot;],
+QPushButton[text=&quot;-&quot;],
+QPushButton[text=&quot;*&quot;],
+QPushButton[text=&quot;/&quot;] {
+    background-color: #e67e22;
+    color: white;
+}
+
+QPushButton[text=&quot;+&quot;]:hover,
+QPushButton[text=&quot;-&quot;]:hover,
+QPushButton[text=&quot;*&quot;]:hover,
+QPushButton[text=&quot;/&quot;]:hover {
+    background-color: #d35400;
+}
+
+/* Стиль для кнопки равно */
+QPushButton[text=&quot;=&quot;] {
+    background-color: #27ae60;
+    color: white;
+}
+
+QPushButton[text=&quot;=&quot;]:hover {
+    background-color: #229954;
+}
+
+/* Стиль для кнопок очистки */
+QPushButton[text=&quot;C&quot;],
+QPushButton[text=&quot;AC&quot;] {
+    background-color: #e74c3c;
+    color: white;
+}
+
+QPushButton[text=&quot;C&quot;]:hover,
+QPushButton[text=&quot;AC&quot;]:hover {
+    background-color: #c0392b;
+}
+
+/* Стиль для цифровых кнопок */
+QPushButton[text=&quot;0&quot;],
+QPushButton[text=&quot;1&quot;],
+QPushButton[text=&quot;2&quot;],
+QPushButton[text=&quot;3&quot;],
+QPushButton[text=&quot;4&quot;],
+QPushButton[text=&quot;5&quot;],
+QPushButton[text=&quot;6&quot;],
+QPushButton[text=&quot;7&quot;],
+QPushButton[text=&quot;8&quot;],
+QPushButton[text=&quot;9&quot;] {
+    background-color: #95a5a6;
+    color: #2c3e50;
+}
+
+QPushButton[text=&quot;0&quot;]:hover,
+QPushButton[text=&quot;1&quot;]:hover,
+QPushButton[text=&quot;2&quot;]:hover,
+QPushButton[text=&quot;3&quot;]:hover,
+QPushButton[text=&quot;4&quot;]:hover,
+QPushButton[text=&quot;5&quot;]:hover,
+QPushButton[text=&quot;6&quot;]:hover,
+QPushButton[text=&quot;7&quot;]:hover,
+QPushButton[text=&quot;8&quot;]:hover,
+QPushButton[text=&quot;9&quot;]:hover {
+    background-color: #7f8c8d;
+}</string>
+      </property>
+      <property name="text">
+       <string>7</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QPushButton" name="pushButton_8">
+      <property name="styleSheet">
+       <string notr="true">/* Стиль для главного окна */
+MainWindow {
+    background-color: #2c3e50;
+}
+
+/* Стиль для QLineEdit (экран калькулятора) */
+QLineEdit {
+    background-color: #1a1a1a;
+    border: 3px solid #34495e;
+    border-radius: 10px;
+    color: #00ff00; /* Зеленый цвет как на старых калькуляторах */
+    font-family: &quot;Digital-7&quot;, &quot;Courier New&quot;, monospace;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 10px 15px;
+    text-align: right;
+    selection-background-color: #34495e;
+    min-height: 50px;
+}
+
+/* Эффект при наведении на экран */
+QLineEdit:hover {
+    border-color: #3498db;
+}
+
+/* Стиль когда экран в фокусе */
+QLineEdit:focus {
+    border-color: #e74c3c;
+}
+
+/* Стиль для кнопок калькулятора */
+QPushButton {
+    background-color: #34495e;
+    border: 2px solid #2c3e50;
+    border-radius: 8px;
+    color: white;
+    font-family: &quot;Arial&quot;, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    min-width: 40px;
+    min-height: 40px;
+}
+
+/* Стиль при наведении на кнопку */
+QPushButton:hover {
+    background-color: #4a6b8a;
+    border-color: #3498db;
+}
+
+/* Стиль при нажатии кнопки */
+QPushButton:pressed {
+    background-color: #2980b9;
+    border-color: #e74c3c;
+}
+
+/* Специальные стили для операторов */
+QPushButton[text=&quot;+&quot;],
+QPushButton[text=&quot;-&quot;],
+QPushButton[text=&quot;*&quot;],
+QPushButton[text=&quot;/&quot;] {
+    background-color: #e67e22;
+    color: white;
+}
+
+QPushButton[text=&quot;+&quot;]:hover,
+QPushButton[text=&quot;-&quot;]:hover,
+QPushButton[text=&quot;*&quot;]:hover,
+QPushButton[text=&quot;/&quot;]:hover {
+    background-color: #d35400;
+}
+
+/* Стиль для кнопки равно */
+QPushButton[text=&quot;=&quot;] {
+    background-color: #27ae60;
+    color: white;
+}
+
+QPushButton[text=&quot;=&quot;]:hover {
+    background-color: #229954;
+}
+
+/* Стиль для кнопок очистки */
+QPushButton[text=&quot;C&quot;],
+QPushButton[text=&quot;AC&quot;] {
+    background-color: #e74c3c;
+    color: white;
+}
+
+QPushButton[text=&quot;C&quot;]:hover,
+QPushButton[text=&quot;AC&quot;]:hover {
+    background-color: #c0392b;
+}
+
+/* Стиль для цифровых кнопок */
+QPushButton[text=&quot;0&quot;],
+QPushButton[text=&quot;1&quot;],
+QPushButton[text=&quot;2&quot;],
+QPushButton[text=&quot;3&quot;],
+QPushButton[text=&quot;4&quot;],
+QPushButton[text=&quot;5&quot;],
+QPushButton[text=&quot;6&quot;],
+QPushButton[text=&quot;7&quot;],
+QPushButton[text=&quot;8&quot;],
+QPushButton[text=&quot;9&quot;] {
+    background-color: #95a5a6;
+    color: #2c3e50;
+}
+
+QPushButton[text=&quot;0&quot;]:hover,
+QPushButton[text=&quot;1&quot;]:hover,
+QPushButton[text=&quot;2&quot;]:hover,
+QPushButton[text=&quot;3&quot;]:hover,
+QPushButton[text=&quot;4&quot;]:hover,
+QPushButton[text=&quot;5&quot;]:hover,
+QPushButton[text=&quot;6&quot;]:hover,
+QPushButton[text=&quot;7&quot;]:hover,
+QPushButton[text=&quot;8&quot;]:hover,
+QPushButton[text=&quot;9&quot;]:hover {
+    background-color: #7f8c8d;
+}</string>
+      </property>
+      <property name="text">
+       <string>8</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="2">
+     <widget class="QPushButton" name="pushButton_9">
+      <property name="styleSheet">
+       <string notr="true">/* Стиль для главного окна */
+MainWindow {
+    background-color: #2c3e50;
+}
+
+/* Стиль для QLineEdit (экран калькулятора) */
+QLineEdit {
+    background-color: #1a1a1a;
+    border: 3px solid #34495e;
+    border-radius: 10px;
+    color: #00ff00; /* Зеленый цвет как на старых калькуляторах */
+    font-family: &quot;Digital-7&quot;, &quot;Courier New&quot;, monospace;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 10px 15px;
+    text-align: right;
+    selection-background-color: #34495e;
+    min-height: 50px;
+}
+
+/* Эффект при наведении на экран */
+QLineEdit:hover {
+    border-color: #3498db;
+}
+
+/* Стиль когда экран в фокусе */
+QLineEdit:focus {
+    border-color: #e74c3c;
+}
+
+/* Стиль для кнопок калькулятора */
+QPushButton {
+    background-color: #34495e;
+    border: 2px solid #2c3e50;
+    border-radius: 8px;
+    color: white;
+    font-family: &quot;Arial&quot;, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    min-width: 40px;
+    min-height: 40px;
+}
+
+/* Стиль при наведении на кнопку */
+QPushButton:hover {
+    background-color: #4a6b8a;
+    border-color: #3498db;
+}
+
+/* Стиль при нажатии кнопки */
+QPushButton:pressed {
+    background-color: #2980b9;
+    border-color: #e74c3c;
+}
+
+/* Специальные стили для операторов */
+QPushButton[text=&quot;+&quot;],
+QPushButton[text=&quot;-&quot;],
+QPushButton[text=&quot;*&quot;],
+QPushButton[text=&quot;/&quot;] {
+    background-color: #e67e22;
+    color: white;
+}
+
+QPushButton[text=&quot;+&quot;]:hover,
+QPushButton[text=&quot;-&quot;]:hover,
+QPushButton[text=&quot;*&quot;]:hover,
+QPushButton[text=&quot;/&quot;]:hover {
+    background-color: #d35400;
+}
+
+/* Стиль для кнопки равно */
+QPushButton[text=&quot;=&quot;] {
+    background-color: #27ae60;
+    color: white;
+}
+
+QPushButton[text=&quot;=&quot;]:hover {
+    background-color: #229954;
+}
+
+/* Стиль для кнопок очистки */
+QPushButton[text=&quot;C&quot;],
+QPushButton[text=&quot;AC&quot;] {
+    background-color: #e74c3c;
+    color: white;
+}
+
+QPushButton[text=&quot;C&quot;]:hover,
+QPushButton[text=&quot;AC&quot;]:hover {
+    background-color: #c0392b;
+}
+
+/* Стиль для цифровых кнопок */
+QPushButton[text=&quot;0&quot;],
+QPushButton[text=&quot;1&quot;],
+QPushButton[text=&quot;2&quot;],
+QPushButton[text=&quot;3&quot;],
+QPushButton[text=&quot;4&quot;],
+QPushButton[text=&quot;5&quot;],
+QPushButton[text=&quot;6&quot;],
+QPushButton[text=&quot;7&quot;],
+QPushButton[text=&quot;8&quot;],
+QPushButton[text=&quot;9&quot;] {
+    background-color: #95a5a6;
+    color: #2c3e50;
+}
+
+QPushButton[text=&quot;0&quot;]:hover,
+QPushButton[text=&quot;1&quot;]:hover,
+QPushButton[text=&quot;2&quot;]:hover,
+QPushButton[text=&quot;3&quot;]:hover,
+QPushButton[text=&quot;4&quot;]:hover,
+QPushButton[text=&quot;5&quot;]:hover,
+QPushButton[text=&quot;6&quot;]:hover,
+QPushButton[text=&quot;7&quot;]:hover,
+QPushButton[text=&quot;8&quot;]:hover,
+QPushButton[text=&quot;9&quot;]:hover {
+    background-color: #7f8c8d;
+}</string>
+      </property>
+      <property name="text">
+       <string>9</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="3">
+     <widget class="QPushButton" name="pushButton_umonozh">
+      <property name="styleSheet">
+       <string notr="true">/* Стиль для главного окна */
+MainWindow {
+    background-color: #2c3e50;
+}
+
+/* Стиль для QLineEdit (экран калькулятора) */
+QLineEdit {
+    background-color: #1a1a1a;
+    border: 3px solid #34495e;
+    border-radius: 10px;
+    color: #00ff00; /* Зеленый цвет как на старых калькуляторах */
+    font-family: &quot;Digital-7&quot;, &quot;Courier New&quot;, monospace;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 10px 15px;
+    text-align: right;
+    selection-background-color: #34495e;
+    min-height: 50px;
+}
+
+/* Эффект при наведении на экран */
+QLineEdit:hover {
+    border-color: #3498db;
+}
+
+/* Стиль когда экран в фокусе */
+QLineEdit:focus {
+    border-color: #e74c3c;
+}
+
+/* Стиль для кнопок калькулятора */
+QPushButton {
+    background-color: #34495e;
+    border: 2px solid #2c3e50;
+    border-radius: 8px;
+    color: white;
+    font-family: &quot;Arial&quot;, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    min-width: 40px;
+    min-height: 40px;
+}
+
+/* Стиль при наведении на кнопку */
+QPushButton:hover {
+    background-color: #4a6b8a;
+    border-color: #3498db;
+}
+
+/* Стиль при нажатии кнопки */
+QPushButton:pressed {
+    background-color: #2980b9;
+    border-color: #e74c3c;
+}
+
+/* Специальные стили для операторов */
+QPushButton[text=&quot;+&quot;],
+QPushButton[text=&quot;-&quot;],
+QPushButton[text=&quot;*&quot;],
+QPushButton[text=&quot;/&quot;] {
+    background-color: #e67e22;
+    color: white;
+}
+
+QPushButton[text=&quot;+&quot;]:hover,
+QPushButton[text=&quot;-&quot;]:hover,
+QPushButton[text=&quot;*&quot;]:hover,
+QPushButton[text=&quot;/&quot;]:hover {
+    background-color: #d35400;
+}
+
+/* Стиль для кнопки равно */
+QPushButton[text=&quot;=&quot;] {
+    background-color: #27ae60;
+    color: white;
+}
+
+QPushButton[text=&quot;=&quot;]:hover {
+    background-color: #229954;
+}
+
+/* Стиль для кнопок очистки */
+QPushButton[text=&quot;C&quot;],
+QPushButton[text=&quot;AC&quot;] {
+    background-color: #e74c3c;
+    color: white;
+}
+
+QPushButton[text=&quot;C&quot;]:hover,
+QPushButton[text=&quot;AC&quot;]:hover {
+    background-color: #c0392b;
+}
+
+/* Стиль для цифровых кнопок */
+QPushButton[text=&quot;0&quot;],
+QPushButton[text=&quot;1&quot;],
+QPushButton[text=&quot;2&quot;],
+QPushButton[text=&quot;3&quot;],
+QPushButton[text=&quot;4&quot;],
+QPushButton[text=&quot;5&quot;],
+QPushButton[text=&quot;6&quot;],
+QPushButton[text=&quot;7&quot;],
+QPushButton[text=&quot;8&quot;],
+QPushButton[text=&quot;9&quot;] {
+    background-color: #95a5a6;
+    color: #2c3e50;
+}
+
+QPushButton[text=&quot;0&quot;]:hover,
+QPushButton[text=&quot;1&quot;]:hover,
+QPushButton[text=&quot;2&quot;]:hover,
+QPushButton[text=&quot;3&quot;]:hover,
+QPushButton[text=&quot;4&quot;]:hover,
+QPushButton[text=&quot;5&quot;]:hover,
+QPushButton[text=&quot;6&quot;]:hover,
+QPushButton[text=&quot;7&quot;]:hover,
+QPushButton[text=&quot;8&quot;]:hover,
+QPushButton[text=&quot;9&quot;]:hover {
+    background-color: #7f8c8d;
+}</string>
+      </property>
+      <property name="text">
+       <string>*</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QPushButton" name="pushButton_4">
+      <property name="styleSheet">
+       <string notr="true">/* Стиль для главного окна */
+MainWindow {
+    background-color: #2c3e50;
+}
+
+/* Стиль для QLineEdit (экран калькулятора) */
+QLineEdit {
+    background-color: #1a1a1a;
+    border: 3px solid #34495e;
+    border-radius: 10px;
+    color: #00ff00; /* Зеленый цвет как на старых калькуляторах */
+    font-family: &quot;Digital-7&quot;, &quot;Courier New&quot;, monospace;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 10px 15px;
+    text-align: right;
+    selection-background-color: #34495e;
+    min-height: 50px;
+}
+
+/* Эффект при наведении на экран */
+QLineEdit:hover {
+    border-color: #3498db;
+}
+
+/* Стиль когда экран в фокусе */
+QLineEdit:focus {
+    border-color: #e74c3c;
+}
+
+/* Стиль для кнопок калькулятора */
+QPushButton {
+    background-color: #34495e;
+    border: 2px solid #2c3e50;
+    border-radius: 8px;
+    color: white;
+    font-family: &quot;Arial&quot;, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    min-width: 40px;
+    min-height: 40px;
+}
+
+/* Стиль при наведении на кнопку */
+QPushButton:hover {
+    background-color: #4a6b8a;
+    border-color: #3498db;
+}
+
+/* Стиль при нажатии кнопки */
+QPushButton:pressed {
+    background-color: #2980b9;
+    border-color: #e74c3c;
+}
+
+/* Специальные стили для операторов */
+QPushButton[text=&quot;+&quot;],
+QPushButton[text=&quot;-&quot;],
+QPushButton[text=&quot;*&quot;],
+QPushButton[text=&quot;/&quot;] {
+    background-color: #e67e22;
+    color: white;
+}
+
+QPushButton[text=&quot;+&quot;]:hover,
+QPushButton[text=&quot;-&quot;]:hover,
+QPushButton[text=&quot;*&quot;]:hover,
+QPushButton[text=&quot;/&quot;]:hover {
+    background-color: #d35400;
+}
+
+/* Стиль для кнопки равно */
+QPushButton[text=&quot;=&quot;] {
+    background-color: #27ae60;
+    color: white;
+}
+
+QPushButton[text=&quot;=&quot;]:hover {
+    background-color: #229954;
+}
+
+/* Стиль для кнопок очистки */
+QPushButton[text=&quot;C&quot;],
+QPushButton[text=&quot;AC&quot;] {
+    background-color: #e74c3c;
+    color: white;
+}
+
+QPushButton[text=&quot;C&quot;]:hover,
+QPushButton[text=&quot;AC&quot;]:hover {
+    background-color: #c0392b;
+}
+
+/* Стиль для цифровых кнопок */
+QPushButton[text=&quot;0&quot;],
+QPushButton[text=&quot;1&quot;],
+QPushButton[text=&quot;2&quot;],
+QPushButton[text=&quot;3&quot;],
+QPushButton[text=&quot;4&quot;],
+QPushButton[text=&quot;5&quot;],
+QPushButton[text=&quot;6&quot;],
+QPushButton[text=&quot;7&quot;],
+QPushButton[text=&quot;8&quot;],
+QPushButton[text=&quot;9&quot;] {
+    background-color: #95a5a6;
+    color: #2c3e50;
+}
+
+QPushButton[text=&quot;0&quot;]:hover,
+QPushButton[text=&quot;1&quot;]:hover,
+QPushButton[text=&quot;2&quot;]:hover,
+QPushButton[text=&quot;3&quot;]:hover,
+QPushButton[text=&quot;4&quot;]:hover,
+QPushButton[text=&quot;5&quot;]:hover,
+QPushButton[text=&quot;6&quot;]:hover,
+QPushButton[text=&quot;7&quot;]:hover,
+QPushButton[text=&quot;8&quot;]:hover,
+QPushButton[text=&quot;9&quot;]:hover {
+    background-color: #7f8c8d;
+}</string>
+      </property>
+      <property name="text">
+       <string>4</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QPushButton" name="pushButton_5">
+      <property name="styleSheet">
+       <string notr="true">/* Стиль для главного окна */
+MainWindow {
+    background-color: #2c3e50;
+}
+
+/* Стиль для QLineEdit (экран калькулятора) */
+QLineEdit {
+    background-color: #1a1a1a;
+    border: 3px solid #34495e;
+    border-radius: 10px;
+    color: #00ff00; /* Зеленый цвет как на старых калькуляторах */
+    font-family: &quot;Digital-7&quot;, &quot;Courier New&quot;, monospace;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 10px 15px;
+    text-align: right;
+    selection-background-color: #34495e;
+    min-height: 50px;
+}
+
+/* Эффект при наведении на экран */
+QLineEdit:hover {
+    border-color: #3498db;
+}
+
+/* Стиль когда экран в фокусе */
+QLineEdit:focus {
+    border-color: #e74c3c;
+}
+
+/* Стиль для кнопок калькулятора */
+QPushButton {
+    background-color: #34495e;
+    border: 2px solid #2c3e50;
+    border-radius: 8px;
+    color: white;
+    font-family: &quot;Arial&quot;, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    min-width: 40px;
+    min-height: 40px;
+}
+
+/* Стиль при наведении на кнопку */
+QPushButton:hover {
+    background-color: #4a6b8a;
+    border-color: #3498db;
+}
+
+/* Стиль при нажатии кнопки */
+QPushButton:pressed {
+    background-color: #2980b9;
+    border-color: #e74c3c;
+}
+
+/* Специальные стили для операторов */
+QPushButton[text=&quot;+&quot;],
+QPushButton[text=&quot;-&quot;],
+QPushButton[text=&quot;*&quot;],
+QPushButton[text=&quot;/&quot;] {
+    background-color: #e67e22;
+    color: white;
+}
+
+QPushButton[text=&quot;+&quot;]:hover,
+QPushButton[text=&quot;-&quot;]:hover,
+QPushButton[text=&quot;*&quot;]:hover,
+QPushButton[text=&quot;/&quot;]:hover {
+    background-color: #d35400;
+}
+
+/* Стиль для кнопки равно */
+QPushButton[text=&quot;=&quot;] {
+    background-color: #27ae60;
+    color: white;
+}
+
+QPushButton[text=&quot;=&quot;]:hover {
+    background-color: #229954;
+}
+
+/* Стиль для кнопок очистки */
+QPushButton[text=&quot;C&quot;],
+QPushButton[text=&quot;AC&quot;] {
+    background-color: #e74c3c;
+    color: white;
+}
+
+QPushButton[text=&quot;C&quot;]:hover,
+QPushButton[text=&quot;AC&quot;]:hover {
+    background-color: #c0392b;
+}
+
+/* Стиль для цифровых кнопок */
+QPushButton[text=&quot;0&quot;],
+QPushButton[text=&quot;1&quot;],
+QPushButton[text=&quot;2&quot;],
+QPushButton[text=&quot;3&quot;],
+QPushButton[text=&quot;4&quot;],
+QPushButton[text=&quot;5&quot;],
+QPushButton[text=&quot;6&quot;],
+QPushButton[text=&quot;7&quot;],
+QPushButton[text=&quot;8&quot;],
+QPushButton[text=&quot;9&quot;] {
+    background-color: #95a5a6;
+    color: #2c3e50;
+}
+
+QPushButton[text=&quot;0&quot;]:hover,
+QPushButton[text=&quot;1&quot;]:hover,
+QPushButton[text=&quot;2&quot;]:hover,
+QPushButton[text=&quot;3&quot;]:hover,
+QPushButton[text=&quot;4&quot;]:hover,
+QPushButton[text=&quot;5&quot;]:hover,
+QPushButton[text=&quot;6&quot;]:hover,
+QPushButton[text=&quot;7&quot;]:hover,
+QPushButton[text=&quot;8&quot;]:hover,
+QPushButton[text=&quot;9&quot;]:hover {
+    background-color: #7f8c8d;
+}</string>
+      </property>
+      <property name="text">
+       <string>5</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="2">
+     <widget class="QPushButton" name="pushButton_6">
+      <property name="styleSheet">
+       <string notr="true">/* Стиль для главного окна */
+MainWindow {
+    background-color: #2c3e50;
+}
+
+/* Стиль для QLineEdit (экран калькулятора) */
+QLineEdit {
+    background-color: #1a1a1a;
+    border: 3px solid #34495e;
+    border-radius: 10px;
+    color: #00ff00; /* Зеленый цвет как на старых калькуляторах */
+    font-family: &quot;Digital-7&quot;, &quot;Courier New&quot;, monospace;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 10px 15px;
+    text-align: right;
+    selection-background-color: #34495e;
+    min-height: 50px;
+}
+
+/* Эффект при наведении на экран */
+QLineEdit:hover {
+    border-color: #3498db;
+}
+
+/* Стиль когда экран в фокусе */
+QLineEdit:focus {
+    border-color: #e74c3c;
+}
+
+/* Стиль для кнопок калькулятора */
+QPushButton {
+    background-color: #34495e;
+    border: 2px solid #2c3e50;
+    border-radius: 8px;
+    color: white;
+    font-family: &quot;Arial&quot;, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    min-width: 40px;
+    min-height: 40px;
+}
+
+/* Стиль при наведении на кнопку */
+QPushButton:hover {
+    background-color: #4a6b8a;
+    border-color: #3498db;
+}
+
+/* Стиль при нажатии кнопки */
+QPushButton:pressed {
+    background-color: #2980b9;
+    border-color: #e74c3c;
+}
+
+/* Специальные стили для операторов */
+QPushButton[text=&quot;+&quot;],
+QPushButton[text=&quot;-&quot;],
+QPushButton[text=&quot;*&quot;],
+QPushButton[text=&quot;/&quot;] {
+    background-color: #e67e22;
+    color: white;
+}
+
+QPushButton[text=&quot;+&quot;]:hover,
+QPushButton[text=&quot;-&quot;]:hover,
+QPushButton[text=&quot;*&quot;]:hover,
+QPushButton[text=&quot;/&quot;]:hover {
+    background-color: #d35400;
+}
+
+/* Стиль для кнопки равно */
+QPushButton[text=&quot;=&quot;] {
+    background-color: #27ae60;
+    color: white;
+}
+
+QPushButton[text=&quot;=&quot;]:hover {
+    background-color: #229954;
+}
+
+/* Стиль для кнопок очистки */
+QPushButton[text=&quot;C&quot;],
+QPushButton[text=&quot;AC&quot;] {
+    background-color: #e74c3c;
+    color: white;
+}
+
+QPushButton[text=&quot;C&quot;]:hover,
+QPushButton[text=&quot;AC&quot;]:hover {
+    background-color: #c0392b;
+}
+
+/* Стиль для цифровых кнопок */
+QPushButton[text=&quot;0&quot;],
+QPushButton[text=&quot;1&quot;],
+QPushButton[text=&quot;2&quot;],
+QPushButton[text=&quot;3&quot;],
+QPushButton[text=&quot;4&quot;],
+QPushButton[text=&quot;5&quot;],
+QPushButton[text=&quot;6&quot;],
+QPushButton[text=&quot;7&quot;],
+QPushButton[text=&quot;8&quot;],
+QPushButton[text=&quot;9&quot;] {
+    background-color: #95a5a6;
+    color: #2c3e50;
+}
+
+QPushButton[text=&quot;0&quot;]:hover,
+QPushButton[text=&quot;1&quot;]:hover,
+QPushButton[text=&quot;2&quot;]:hover,
+QPushButton[text=&quot;3&quot;]:hover,
+QPushButton[text=&quot;4&quot;]:hover,
+QPushButton[text=&quot;5&quot;]:hover,
+QPushButton[text=&quot;6&quot;]:hover,
+QPushButton[text=&quot;7&quot;]:hover,
+QPushButton[text=&quot;8&quot;]:hover,
+QPushButton[text=&quot;9&quot;]:hover {
+    background-color: #7f8c8d;
+}</string>
+      </property>
+      <property name="text">
+       <string>6</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="3">
+     <widget class="QPushButton" name="pushButton_minus">
+      <property name="styleSheet">
+       <string notr="true">/* Стиль для главного окна */
+MainWindow {
+    background-color: #2c3e50;
+}
+
+/* Стиль для QLineEdit (экран калькулятора) */
+QLineEdit {
+    background-color: #1a1a1a;
+    border: 3px solid #34495e;
+    border-radius: 10px;
+    color: #00ff00; /* Зеленый цвет как на старых калькуляторах */
+    font-family: &quot;Digital-7&quot;, &quot;Courier New&quot;, monospace;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 10px 15px;
+    text-align: right;
+    selection-background-color: #34495e;
+    min-height: 50px;
+}
+
+/* Эффект при наведении на экран */
+QLineEdit:hover {
+    border-color: #3498db;
+}
+
+/* Стиль когда экран в фокусе */
+QLineEdit:focus {
+    border-color: #e74c3c;
+}
+
+/* Стиль для кнопок калькулятора */
+QPushButton {
+    background-color: #34495e;
+    border: 2px solid #2c3e50;
+    border-radius: 8px;
+    color: white;
+    font-family: &quot;Arial&quot;, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    min-width: 40px;
+    min-height: 40px;
+}
+
+/* Стиль при наведении на кнопку */
+QPushButton:hover {
+    background-color: #4a6b8a;
+    border-color: #3498db;
+}
+
+/* Стиль при нажатии кнопки */
+QPushButton:pressed {
+    background-color: #2980b9;
+    border-color: #e74c3c;
+}
+
+/* Специальные стили для операторов */
+QPushButton[text=&quot;+&quot;],
+QPushButton[text=&quot;-&quot;],
+QPushButton[text=&quot;*&quot;],
+QPushButton[text=&quot;/&quot;] {
+    background-color: #e67e22;
+    color: white;
+}
+
+QPushButton[text=&quot;+&quot;]:hover,
+QPushButton[text=&quot;-&quot;]:hover,
+QPushButton[text=&quot;*&quot;]:hover,
+QPushButton[text=&quot;/&quot;]:hover {
+    background-color: #d35400;
+}
+
+/* Стиль для кнопки равно */
+QPushButton[text=&quot;=&quot;] {
+    background-color: #27ae60;
+    color: white;
+}
+
+QPushButton[text=&quot;=&quot;]:hover {
+    background-color: #229954;
+}
+
+/* Стиль для кнопок очистки */
+QPushButton[text=&quot;C&quot;],
+QPushButton[text=&quot;AC&quot;] {
+    background-color: #e74c3c;
+    color: white;
+}
+
+QPushButton[text=&quot;C&quot;]:hover,
+QPushButton[text=&quot;AC&quot;]:hover {
+    background-color: #c0392b;
+}
+
+/* Стиль для цифровых кнопок */
+QPushButton[text=&quot;0&quot;],
+QPushButton[text=&quot;1&quot;],
+QPushButton[text=&quot;2&quot;],
+QPushButton[text=&quot;3&quot;],
+QPushButton[text=&quot;4&quot;],
+QPushButton[text=&quot;5&quot;],
+QPushButton[text=&quot;6&quot;],
+QPushButton[text=&quot;7&quot;],
+QPushButton[text=&quot;8&quot;],
+QPushButton[text=&quot;9&quot;] {
+    background-color: #95a5a6;
+    color: #2c3e50;
+}
+
+QPushButton[text=&quot;0&quot;]:hover,
+QPushButton[text=&quot;1&quot;]:hover,
+QPushButton[text=&quot;2&quot;]:hover,
+QPushButton[text=&quot;3&quot;]:hover,
+QPushButton[text=&quot;4&quot;]:hover,
+QPushButton[text=&quot;5&quot;]:hover,
+QPushButton[text=&quot;6&quot;]:hover,
+QPushButton[text=&quot;7&quot;]:hover,
+QPushButton[text=&quot;8&quot;]:hover,
+QPushButton[text=&quot;9&quot;]:hover {
+    background-color: #7f8c8d;
+}</string>
+      </property>
+      <property name="text">
+       <string>-</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QPushButton" name="pushButton_1">
+      <property name="styleSheet">
+       <string notr="true">/* Стиль для главного окна */
+MainWindow {
+    background-color: #2c3e50;
+}
+
+/* Стиль для QLineEdit (экран калькулятора) */
+QLineEdit {
+    background-color: #1a1a1a;
+    border: 3px solid #34495e;
+    border-radius: 10px;
+    color: #00ff00; /* Зеленый цвет как на старых калькуляторах */
+    font-family: &quot;Digital-7&quot;, &quot;Courier New&quot;, monospace;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 10px 15px;
+    text-align: right;
+    selection-background-color: #34495e;
+    min-height: 50px;
+}
+
+/* Эффект при наведении на экран */
+QLineEdit:hover {
+    border-color: #3498db;
+}
+
+/* Стиль когда экран в фокусе */
+QLineEdit:focus {
+    border-color: #e74c3c;
+}
+
+/* Стиль для кнопок калькулятора */
+QPushButton {
+    background-color: #34495e;
+    border: 2px solid #2c3e50;
+    border-radius: 8px;
+    color: white;
+    font-family: &quot;Arial&quot;, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    min-width: 40px;
+    min-height: 40px;
+}
+
+/* Стиль при наведении на кнопку */
+QPushButton:hover {
+    background-color: #4a6b8a;
+    border-color: #3498db;
+}
+
+/* Стиль при нажатии кнопки */
+QPushButton:pressed {
+    background-color: #2980b9;
+    border-color: #e74c3c;
+}
+
+/* Специальные стили для операторов */
+QPushButton[text=&quot;+&quot;],
+QPushButton[text=&quot;-&quot;],
+QPushButton[text=&quot;*&quot;],
+QPushButton[text=&quot;/&quot;] {
+    background-color: #e67e22;
+    color: white;
+}
+
+QPushButton[text=&quot;+&quot;]:hover,
+QPushButton[text=&quot;-&quot;]:hover,
+QPushButton[text=&quot;*&quot;]:hover,
+QPushButton[text=&quot;/&quot;]:hover {
+    background-color: #d35400;
+}
+
+/* Стиль для кнопки равно */
+QPushButton[text=&quot;=&quot;] {
+    background-color: #27ae60;
+    color: white;
+}
+
+QPushButton[text=&quot;=&quot;]:hover {
+    background-color: #229954;
+}
+
+/* Стиль для кнопок очистки */
+QPushButton[text=&quot;C&quot;],
+QPushButton[text=&quot;AC&quot;] {
+    background-color: #e74c3c;
+    color: white;
+}
+
+QPushButton[text=&quot;C&quot;]:hover,
+QPushButton[text=&quot;AC&quot;]:hover {
+    background-color: #c0392b;
+}
+
+/* Стиль для цифровых кнопок */
+QPushButton[text=&quot;0&quot;],
+QPushButton[text=&quot;1&quot;],
+QPushButton[text=&quot;2&quot;],
+QPushButton[text=&quot;3&quot;],
+QPushButton[text=&quot;4&quot;],
+QPushButton[text=&quot;5&quot;],
+QPushButton[text=&quot;6&quot;],
+QPushButton[text=&quot;7&quot;],
+QPushButton[text=&quot;8&quot;],
+QPushButton[text=&quot;9&quot;] {
+    background-color: #95a5a6;
+    color: #2c3e50;
+}
+
+QPushButton[text=&quot;0&quot;]:hover,
+QPushButton[text=&quot;1&quot;]:hover,
+QPushButton[text=&quot;2&quot;]:hover,
+QPushButton[text=&quot;3&quot;]:hover,
+QPushButton[text=&quot;4&quot;]:hover,
+QPushButton[text=&quot;5&quot;]:hover,
+QPushButton[text=&quot;6&quot;]:hover,
+QPushButton[text=&quot;7&quot;]:hover,
+QPushButton[text=&quot;8&quot;]:hover,
+QPushButton[text=&quot;9&quot;]:hover {
+    background-color: #7f8c8d;
+}</string>
+      </property>
+      <property name="text">
+       <string>1</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="styleSheet">
+       <string notr="true">/* Стиль для главного окна */
+MainWindow {
+    background-color: #2c3e50;
+}
+
+/* Стиль для QLineEdit (экран калькулятора) */
+QLineEdit {
+    background-color: #1a1a1a;
+    border: 3px solid #34495e;
+    border-radius: 10px;
+    color: #00ff00; /* Зеленый цвет как на старых калькуляторах */
+    font-family: &quot;Digital-7&quot;, &quot;Courier New&quot;, monospace;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 10px 15px;
+    text-align: right;
+    selection-background-color: #34495e;
+    min-height: 50px;
+}
+
+/* Эффект при наведении на экран */
+QLineEdit:hover {
+    border-color: #3498db;
+}
+
+/* Стиль когда экран в фокусе */
+QLineEdit:focus {
+    border-color: #e74c3c;
+}
+
+/* Стиль для кнопок калькулятора */
+QPushButton {
+    background-color: #34495e;
+    border: 2px solid #2c3e50;
+    border-radius: 8px;
+    color: white;
+    font-family: &quot;Arial&quot;, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    min-width: 40px;
+    min-height: 40px;
+}
+
+/* Стиль при наведении на кнопку */
+QPushButton:hover {
+    background-color: #4a6b8a;
+    border-color: #3498db;
+}
+
+/* Стиль при нажатии кнопки */
+QPushButton:pressed {
+    background-color: #2980b9;
+    border-color: #e74c3c;
+}
+
+/* Специальные стили для операторов */
+QPushButton[text=&quot;+&quot;],
+QPushButton[text=&quot;-&quot;],
+QPushButton[text=&quot;*&quot;],
+QPushButton[text=&quot;/&quot;] {
+    background-color: #e67e22;
+    color: white;
+}
+
+QPushButton[text=&quot;+&quot;]:hover,
+QPushButton[text=&quot;-&quot;]:hover,
+QPushButton[text=&quot;*&quot;]:hover,
+QPushButton[text=&quot;/&quot;]:hover {
+    background-color: #d35400;
+}
+
+/* Стиль для кнопки равно */
+QPushButton[text=&quot;=&quot;] {
+    background-color: #27ae60;
+    color: white;
+}
+
+QPushButton[text=&quot;=&quot;]:hover {
+    background-color: #229954;
+}
+
+/* Стиль для кнопок очистки */
+QPushButton[text=&quot;C&quot;],
+QPushButton[text=&quot;AC&quot;] {
+    background-color: #e74c3c;
+    color: white;
+}
+
+QPushButton[text=&quot;C&quot;]:hover,
+QPushButton[text=&quot;AC&quot;]:hover {
+    background-color: #c0392b;
+}
+
+/* Стиль для цифровых кнопок */
+QPushButton[text=&quot;0&quot;],
+QPushButton[text=&quot;1&quot;],
+QPushButton[text=&quot;2&quot;],
+QPushButton[text=&quot;3&quot;],
+QPushButton[text=&quot;4&quot;],
+QPushButton[text=&quot;5&quot;],
+QPushButton[text=&quot;6&quot;],
+QPushButton[text=&quot;7&quot;],
+QPushButton[text=&quot;8&quot;],
+QPushButton[text=&quot;9&quot;] {
+    background-color: #95a5a6;
+    color: #2c3e50;
+}
+
+QPushButton[text=&quot;0&quot;]:hover,
+QPushButton[text=&quot;1&quot;]:hover,
+QPushButton[text=&quot;2&quot;]:hover,
+QPushButton[text=&quot;3&quot;]:hover,
+QPushButton[text=&quot;4&quot;]:hover,
+QPushButton[text=&quot;5&quot;]:hover,
+QPushButton[text=&quot;6&quot;]:hover,
+QPushButton[text=&quot;7&quot;]:hover,
+QPushButton[text=&quot;8&quot;]:hover,
+QPushButton[text=&quot;9&quot;]:hover {
+    background-color: #7f8c8d;
+}</string>
+      </property>
+      <property name="text">
+       <string>2</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="2">
+     <widget class="QPushButton" name="pushButton_3">
+      <property name="styleSheet">
+       <string notr="true">/* Стиль для главного окна */
+MainWindow {
+    background-color: #2c3e50;
+}
+
+/* Стиль для QLineEdit (экран калькулятора) */
+QLineEdit {
+    background-color: #1a1a1a;
+    border: 3px solid #34495e;
+    border-radius: 10px;
+    color: #00ff00; /* Зеленый цвет как на старых калькуляторах */
+    font-family: &quot;Digital-7&quot;, &quot;Courier New&quot;, monospace;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 10px 15px;
+    text-align: right;
+    selection-background-color: #34495e;
+    min-height: 50px;
+}
+
+/* Эффект при наведении на экран */
+QLineEdit:hover {
+    border-color: #3498db;
+}
+
+/* Стиль когда экран в фокусе */
+QLineEdit:focus {
+    border-color: #e74c3c;
+}
+
+/* Стиль для кнопок калькулятора */
+QPushButton {
+    background-color: #34495e;
+    border: 2px solid #2c3e50;
+    border-radius: 8px;
+    color: white;
+    font-family: &quot;Arial&quot;, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    min-width: 40px;
+    min-height: 40px;
+}
+
+/* Стиль при наведении на кнопку */
+QPushButton:hover {
+    background-color: #4a6b8a;
+    border-color: #3498db;
+}
+
+/* Стиль при нажатии кнопки */
+QPushButton:pressed {
+    background-color: #2980b9;
+    border-color: #e74c3c;
+}
+
+/* Специальные стили для операторов */
+QPushButton[text=&quot;+&quot;],
+QPushButton[text=&quot;-&quot;],
+QPushButton[text=&quot;*&quot;],
+QPushButton[text=&quot;/&quot;] {
+    background-color: #e67e22;
+    color: white;
+}
+
+QPushButton[text=&quot;+&quot;]:hover,
+QPushButton[text=&quot;-&quot;]:hover,
+QPushButton[text=&quot;*&quot;]:hover,
+QPushButton[text=&quot;/&quot;]:hover {
+    background-color: #d35400;
+}
+
+/* Стиль для кнопки равно */
+QPushButton[text=&quot;=&quot;] {
+    background-color: #27ae60;
+    color: white;
+}
+
+QPushButton[text=&quot;=&quot;]:hover {
+    background-color: #229954;
+}
+
+/* Стиль для кнопок очистки */
+QPushButton[text=&quot;C&quot;],
+QPushButton[text=&quot;AC&quot;] {
+    background-color: #e74c3c;
+    color: white;
+}
+
+QPushButton[text=&quot;C&quot;]:hover,
+QPushButton[text=&quot;AC&quot;]:hover {
+    background-color: #c0392b;
+}
+
+/* Стиль для цифровых кнопок */
+QPushButton[text=&quot;0&quot;],
+QPushButton[text=&quot;1&quot;],
+QPushButton[text=&quot;2&quot;],
+QPushButton[text=&quot;3&quot;],
+QPushButton[text=&quot;4&quot;],
+QPushButton[text=&quot;5&quot;],
+QPushButton[text=&quot;6&quot;],
+QPushButton[text=&quot;7&quot;],
+QPushButton[text=&quot;8&quot;],
+QPushButton[text=&quot;9&quot;] {
+    background-color: #95a5a6;
+    color: #2c3e50;
+}
+
+QPushButton[text=&quot;0&quot;]:hover,
+QPushButton[text=&quot;1&quot;]:hover,
+QPushButton[text=&quot;2&quot;]:hover,
+QPushButton[text=&quot;3&quot;]:hover,
+QPushButton[text=&quot;4&quot;]:hover,
+QPushButton[text=&quot;5&quot;]:hover,
+QPushButton[text=&quot;6&quot;]:hover,
+QPushButton[text=&quot;7&quot;]:hover,
+QPushButton[text=&quot;8&quot;]:hover,
+QPushButton[text=&quot;9&quot;]:hover {
+    background-color: #7f8c8d;
+}</string>
+      </property>
+      <property name="text">
+       <string>3</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="3">
+     <widget class="QPushButton" name="pushButton_plus">
+      <property name="styleSheet">
+       <string notr="true">/* Стиль для главного окна */
+MainWindow {
+    background-color: #2c3e50;
+}
+
+/* Стиль для QLineEdit (экран калькулятора) */
+QLineEdit {
+    background-color: #1a1a1a;
+    border: 3px solid #34495e;
+    border-radius: 10px;
+    color: #00ff00; /* Зеленый цвет как на старых калькуляторах */
+    font-family: &quot;Digital-7&quot;, &quot;Courier New&quot;, monospace;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 10px 15px;
+    text-align: right;
+    selection-background-color: #34495e;
+    min-height: 50px;
+}
+
+/* Эффект при наведении на экран */
+QLineEdit:hover {
+    border-color: #3498db;
+}
+
+/* Стиль когда экран в фокусе */
+QLineEdit:focus {
+    border-color: #e74c3c;
+}
+
+/* Стиль для кнопок калькулятора */
+QPushButton {
+    background-color: #34495e;
+    border: 2px solid #2c3e50;
+    border-radius: 8px;
+    color: white;
+    font-family: &quot;Arial&quot;, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    min-width: 40px;
+    min-height: 40px;
+}
+
+/* Стиль при наведении на кнопку */
+QPushButton:hover {
+    background-color: #4a6b8a;
+    border-color: #3498db;
+}
+
+/* Стиль при нажатии кнопки */
+QPushButton:pressed {
+    background-color: #2980b9;
+    border-color: #e74c3c;
+}
+
+/* Специальные стили для операторов */
+QPushButton[text=&quot;+&quot;],
+QPushButton[text=&quot;-&quot;],
+QPushButton[text=&quot;*&quot;],
+QPushButton[text=&quot;/&quot;] {
+    background-color: #e67e22;
+    color: white;
+}
+
+QPushButton[text=&quot;+&quot;]:hover,
+QPushButton[text=&quot;-&quot;]:hover,
+QPushButton[text=&quot;*&quot;]:hover,
+QPushButton[text=&quot;/&quot;]:hover {
+    background-color: #d35400;
+}
+
+/* Стиль для кнопки равно */
+QPushButton[text=&quot;=&quot;] {
+    background-color: #27ae60;
+    color: white;
+}
+
+QPushButton[text=&quot;=&quot;]:hover {
+    background-color: #229954;
+}
+
+/* Стиль для кнопок очистки */
+QPushButton[text=&quot;C&quot;],
+QPushButton[text=&quot;AC&quot;] {
+    background-color: #e74c3c;
+    color: white;
+}
+
+QPushButton[text=&quot;C&quot;]:hover,
+QPushButton[text=&quot;AC&quot;]:hover {
+    background-color: #c0392b;
+}
+
+/* Стиль для цифровых кнопок */
+QPushButton[text=&quot;0&quot;],
+QPushButton[text=&quot;1&quot;],
+QPushButton[text=&quot;2&quot;],
+QPushButton[text=&quot;3&quot;],
+QPushButton[text=&quot;4&quot;],
+QPushButton[text=&quot;5&quot;],
+QPushButton[text=&quot;6&quot;],
+QPushButton[text=&quot;7&quot;],
+QPushButton[text=&quot;8&quot;],
+QPushButton[text=&quot;9&quot;] {
+    background-color: #95a5a6;
+    color: #2c3e50;
+}
+
+QPushButton[text=&quot;0&quot;]:hover,
+QPushButton[text=&quot;1&quot;]:hover,
+QPushButton[text=&quot;2&quot;]:hover,
+QPushButton[text=&quot;3&quot;]:hover,
+QPushButton[text=&quot;4&quot;]:hover,
+QPushButton[text=&quot;5&quot;]:hover,
+QPushButton[text=&quot;6&quot;]:hover,
+QPushButton[text=&quot;7&quot;]:hover,
+QPushButton[text=&quot;8&quot;]:hover,
+QPushButton[text=&quot;9&quot;]:hover {
+    background-color: #7f8c8d;
+}</string>
+      </property>
+      <property name="text">
+       <string>+</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0" colspan="2">
+     <widget class="QPushButton" name="pushButton_0">
+      <property name="styleSheet">
+       <string notr="true">/* Стиль для главного окна */
+MainWindow {
+    background-color: #2c3e50;
+}
+
+/* Стиль для QLineEdit (экран калькулятора) */
+QLineEdit {
+    background-color: #1a1a1a;
+    border: 3px solid #34495e;
+    border-radius: 10px;
+    color: #00ff00; /* Зеленый цвет как на старых калькуляторах */
+    font-family: &quot;Digital-7&quot;, &quot;Courier New&quot;, monospace;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 10px 15px;
+    text-align: right;
+    selection-background-color: #34495e;
+    min-height: 50px;
+}
+
+/* Эффект при наведении на экран */
+QLineEdit:hover {
+    border-color: #3498db;
+}
+
+/* Стиль когда экран в фокусе */
+QLineEdit:focus {
+    border-color: #e74c3c;
+}
+
+/* Стиль для кнопок калькулятора */
+QPushButton {
+    background-color: #34495e;
+    border: 2px solid #2c3e50;
+    border-radius: 8px;
+    color: white;
+    font-family: &quot;Arial&quot;, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    min-width: 40px;
+    min-height: 40px;
+}
+
+/* Стиль при наведении на кнопку */
+QPushButton:hover {
+    background-color: #4a6b8a;
+    border-color: #3498db;
+}
+
+/* Стиль при нажатии кнопки */
+QPushButton:pressed {
+    background-color: #2980b9;
+    border-color: #e74c3c;
+}
+
+/* Специальные стили для операторов */
+QPushButton[text=&quot;+&quot;],
+QPushButton[text=&quot;-&quot;],
+QPushButton[text=&quot;*&quot;],
+QPushButton[text=&quot;/&quot;] {
+    background-color: #e67e22;
+    color: white;
+}
+
+QPushButton[text=&quot;+&quot;]:hover,
+QPushButton[text=&quot;-&quot;]:hover,
+QPushButton[text=&quot;*&quot;]:hover,
+QPushButton[text=&quot;/&quot;]:hover {
+    background-color: #d35400;
+}
+
+/* Стиль для кнопки равно */
+QPushButton[text=&quot;=&quot;] {
+    background-color: #27ae60;
+    color: white;
+}
+
+QPushButton[text=&quot;=&quot;]:hover {
+    background-color: #229954;
+}
+
+/* Стиль для кнопок очистки */
+QPushButton[text=&quot;C&quot;],
+QPushButton[text=&quot;AC&quot;] {
+    background-color: #e74c3c;
+    color: white;
+}
+
+QPushButton[text=&quot;C&quot;]:hover,
+QPushButton[text=&quot;AC&quot;]:hover {
+    background-color: #c0392b;
+}
+
+/* Стиль для цифровых кнопок */
+QPushButton[text=&quot;0&quot;],
+QPushButton[text=&quot;1&quot;],
+QPushButton[text=&quot;2&quot;],
+QPushButton[text=&quot;3&quot;],
+QPushButton[text=&quot;4&quot;],
+QPushButton[text=&quot;5&quot;],
+QPushButton[text=&quot;6&quot;],
+QPushButton[text=&quot;7&quot;],
+QPushButton[text=&quot;8&quot;],
+QPushButton[text=&quot;9&quot;] {
+    background-color: #95a5a6;
+    color: #2c3e50;
+}
+
+QPushButton[text=&quot;0&quot;]:hover,
+QPushButton[text=&quot;1&quot;]:hover,
+QPushButton[text=&quot;2&quot;]:hover,
+QPushButton[text=&quot;3&quot;]:hover,
+QPushButton[text=&quot;4&quot;]:hover,
+QPushButton[text=&quot;5&quot;]:hover,
+QPushButton[text=&quot;6&quot;]:hover,
+QPushButton[text=&quot;7&quot;]:hover,
+QPushButton[text=&quot;8&quot;]:hover,
+QPushButton[text=&quot;9&quot;]:hover {
+    background-color: #7f8c8d;
+}</string>
+      </property>
+      <property name="text">
+       <string>0</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="2">
+     <widget class="QPushButton" name="pushButton_dot">
+      <property name="styleSheet">
+       <string notr="true">/* Стиль для главного окна */
+MainWindow {
+    background-color: #2c3e50;
+}
+
+/* Стиль для QLineEdit (экран калькулятора) */
+QLineEdit {
+    background-color: #1a1a1a;
+    border: 3px solid #34495e;
+    border-radius: 10px;
+    color: #00ff00; /* Зеленый цвет как на старых калькуляторах */
+    font-family: &quot;Digital-7&quot;, &quot;Courier New&quot;, monospace;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 10px 15px;
+    text-align: right;
+    selection-background-color: #34495e;
+    min-height: 50px;
+}
+
+/* Эффект при наведении на экран */
+QLineEdit:hover {
+    border-color: #3498db;
+}
+
+/* Стиль когда экран в фокусе */
+QLineEdit:focus {
+    border-color: #e74c3c;
+}
+
+/* Стиль для кнопок калькулятора */
+QPushButton {
+    background-color: #34495e;
+    border: 2px solid #2c3e50;
+    border-radius: 8px;
+    color: white;
+    font-family: &quot;Arial&quot;, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    min-width: 40px;
+    min-height: 40px;
+}
+
+/* Стиль при наведении на кнопку */
+QPushButton:hover {
+    background-color: #4a6b8a;
+    border-color: #3498db;
+}
+
+/* Стиль при нажатии кнопки */
+QPushButton:pressed {
+    background-color: #2980b9;
+    border-color: #e74c3c;
+}
+
+/* Специальные стили для операторов */
+QPushButton[text=&quot;+&quot;],
+QPushButton[text=&quot;-&quot;],
+QPushButton[text=&quot;*&quot;],
+QPushButton[text=&quot;/&quot;] {
+    background-color: #e67e22;
+    color: white;
+}
+
+QPushButton[text=&quot;+&quot;]:hover,
+QPushButton[text=&quot;-&quot;]:hover,
+QPushButton[text=&quot;*&quot;]:hover,
+QPushButton[text=&quot;/&quot;]:hover {
+    background-color: #d35400;
+}
+
+/* Стиль для кнопки равно */
+QPushButton[text=&quot;=&quot;] {
+    background-color: #27ae60;
+    color: white;
+}
+
+QPushButton[text=&quot;=&quot;]:hover {
+    background-color: #229954;
+}
+
+/* Стиль для кнопок очистки */
+QPushButton[text=&quot;C&quot;],
+QPushButton[text=&quot;AC&quot;] {
+    background-color: #e74c3c;
+    color: white;
+}
+
+QPushButton[text=&quot;C&quot;]:hover,
+QPushButton[text=&quot;AC&quot;]:hover {
+    background-color: #c0392b;
+}
+
+/* Стиль для цифровых кнопок */
+QPushButton[text=&quot;0&quot;],
+QPushButton[text=&quot;1&quot;],
+QPushButton[text=&quot;2&quot;],
+QPushButton[text=&quot;3&quot;],
+QPushButton[text=&quot;4&quot;],
+QPushButton[text=&quot;5&quot;],
+QPushButton[text=&quot;6&quot;],
+QPushButton[text=&quot;7&quot;],
+QPushButton[text=&quot;8&quot;],
+QPushButton[text=&quot;9&quot;] {
+    background-color: #95a5a6;
+    color: #2c3e50;
+}
+
+QPushButton[text=&quot;0&quot;]:hover,
+QPushButton[text=&quot;1&quot;]:hover,
+QPushButton[text=&quot;2&quot;]:hover,
+QPushButton[text=&quot;3&quot;]:hover,
+QPushButton[text=&quot;4&quot;]:hover,
+QPushButton[text=&quot;5&quot;]:hover,
+QPushButton[text=&quot;6&quot;]:hover,
+QPushButton[text=&quot;7&quot;]:hover,
+QPushButton[text=&quot;8&quot;]:hover,
+QPushButton[text=&quot;9&quot;]:hover {
+    background-color: #7f8c8d;
+}</string>
+      </property>
+      <property name="text">
+       <string>.</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="3">
+     <widget class="QPushButton" name="pushButton_ravno">
+      <property name="styleSheet">
+       <string notr="true">/* Стиль для главного окна */
+MainWindow {
+    background-color: #2c3e50;
+}
+
+/* Стиль для QLineEdit (экран калькулятора) */
+QLineEdit {
+    background-color: #1a1a1a;
+    border: 3px solid #34495e;
+    border-radius: 10px;
+    color: #00ff00; /* Зеленый цвет как на старых калькуляторах */
+    font-family: &quot;Digital-7&quot;, &quot;Courier New&quot;, monospace;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 10px 15px;
+    text-align: right;
+    selection-background-color: #34495e;
+    min-height: 50px;
+}
+
+/* Эффект при наведении на экран */
+QLineEdit:hover {
+    border-color: #3498db;
+}
+
+/* Стиль когда экран в фокусе */
+QLineEdit:focus {
+    border-color: #e74c3c;
+}
+
+/* Стиль для кнопок калькулятора */
+QPushButton {
+    background-color: #34495e;
+    border: 2px solid #2c3e50;
+    border-radius: 8px;
+    color: white;
+    font-family: &quot;Arial&quot;, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    min-width: 40px;
+    min-height: 40px;
+}
+
+/* Стиль при наведении на кнопку */
+QPushButton:hover {
+    background-color: #4a6b8a;
+    border-color: #3498db;
+}
+
+/* Стиль при нажатии кнопки */
+QPushButton:pressed {
+    background-color: #2980b9;
+    border-color: #e74c3c;
+}
+
+/* Специальные стили для операторов */
+QPushButton[text=&quot;+&quot;],
+QPushButton[text=&quot;-&quot;],
+QPushButton[text=&quot;*&quot;],
+QPushButton[text=&quot;/&quot;] {
+    background-color: #e67e22;
+    color: white;
+}
+
+QPushButton[text=&quot;+&quot;]:hover,
+QPushButton[text=&quot;-&quot;]:hover,
+QPushButton[text=&quot;*&quot;]:hover,
+QPushButton[text=&quot;/&quot;]:hover {
+    background-color: #d35400;
+}
+
+/* Стиль для кнопки равно */
+QPushButton[text=&quot;=&quot;] {
+    background-color: #27ae60;
+    color: white;
+}
+
+QPushButton[text=&quot;=&quot;]:hover {
+    background-color: #229954;
+}
+
+/* Стиль для кнопок очистки */
+QPushButton[text=&quot;C&quot;],
+QPushButton[text=&quot;AC&quot;] {
+    background-color: #e74c3c;
+    color: white;
+}
+
+QPushButton[text=&quot;C&quot;]:hover,
+QPushButton[text=&quot;AC&quot;]:hover {
+    background-color: #c0392b;
+}
+
+/* Стиль для цифровых кнопок */
+QPushButton[text=&quot;0&quot;],
+QPushButton[text=&quot;1&quot;],
+QPushButton[text=&quot;2&quot;],
+QPushButton[text=&quot;3&quot;],
+QPushButton[text=&quot;4&quot;],
+QPushButton[text=&quot;5&quot;],
+QPushButton[text=&quot;6&quot;],
+QPushButton[text=&quot;7&quot;],
+QPushButton[text=&quot;8&quot;],
+QPushButton[text=&quot;9&quot;] {
+    background-color: #95a5a6;
+    color: #2c3e50;
+}
+
+QPushButton[text=&quot;0&quot;]:hover,
+QPushButton[text=&quot;1&quot;]:hover,
+QPushButton[text=&quot;2&quot;]:hover,
+QPushButton[text=&quot;3&quot;]:hover,
+QPushButton[text=&quot;4&quot;]:hover,
+QPushButton[text=&quot;5&quot;]:hover,
+QPushButton[text=&quot;6&quot;]:hover,
+QPushButton[text=&quot;7&quot;]:hover,
+QPushButton[text=&quot;8&quot;]:hover,
+QPushButton[text=&quot;9&quot;]:hover {
+    background-color: #7f8c8d;
+}</string>
+      </property>
+      <property name="text">
+       <string>=</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <action name="action_2">
+   <property name="text">
+    <string>Открыть проект</string>
+   </property>
+  </action>
+  <action name="action_3">
+   <property name="text">
+    <string>Выйти</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
